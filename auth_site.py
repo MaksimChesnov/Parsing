@@ -4,7 +4,10 @@ import fake_useragent as fu
 #from requests import *
 
 url = 'https://proza.ru/login/'
-log_pass ={'login': 'macson', 'password': 'raphaelmacson'}
+print(url)
+login = input('Введите логин: ')
+password = input('Введите пароль: ')
+log_pass ={'login': login, 'password': password}
 files=[]
 headers = {'UserAgent': fu.UserAgent().chrome}
 print (headers)
