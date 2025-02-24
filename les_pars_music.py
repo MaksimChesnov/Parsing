@@ -1,8 +1,15 @@
-import pip._vendor.requests as req
+import requests as req
 import os
+import fake_useragent as fu
 
 #Подключение к сайту с музыкой
-res = req.get('https://rus.hitmotop.com')
+
+#Создаем заголовок будто это не парсинг, а реальный пользователь зашел на сайт
+headers = {'UserAgent': fu.UserAgent().chrome}
+url = 'https://rus.hitmotop.com'
+res = req.request("GET", url, headers=headers)
+
+print(res.status_code)
 
 if res.status_code == 200:
     print('Подключение успешно, ', res.status_code)
@@ -24,7 +31,7 @@ if res.status_code == 200:
 
     #У нас есть список ссылок. Идем по ним и выкачиваем файлы
     ind = 0
-    for i in links[0:5]:
+    for i in links[0:10]:
         #Убираем href= из ссылки
         link = links[ind].replace('href=', '')
         #Убираем двойные кавычки
@@ -40,5 +47,4 @@ if res.status_code == 200:
         print (req_link.status_code, ',', link)
                 
 else:
-    print('Не получилось подключиться, код ошибки = ', res.status_code)
-     
+    print('Не получилось подключиться, код ошибки = ', res.status_code) 
